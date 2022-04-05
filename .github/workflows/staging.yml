@@ -1,8 +1,8 @@
-name: Publish
+name: Staging
 
 on:
-  release:
-    types: [published]
+  push:
+    branches: [ staging ]
 
 jobs:
   build:
@@ -29,10 +29,6 @@ jobs:
         uses: actions/checkout@master
         with:
           repository: nibdo/bloben-tasks
-      - name: Install dependencies
-        run: npm i
-      - name: Run build
-        run: npm run build
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
       -
@@ -50,4 +46,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: bloben/tasks:${{ steps.tag_version.outputs.VERSION }}, bloben/tasks:latest
+          tags: bloben/tasks:staging
